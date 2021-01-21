@@ -1,6 +1,6 @@
 # Import des bibliotheques necessaires au programme
-from copy import *
-from random import *
+from copy import deepcopy
+from random import shuffle
 from discord import Embed
 
 """

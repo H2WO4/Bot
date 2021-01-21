@@ -18,12 +18,12 @@ app = Quart(__name__)
 
 # Racine
 @app.route('/')
-async def home():
+async def home() -> str:
     return 'Coucou la MPSI1'
 
 # Pull
 @app.route('/pull', methods=['POST'])
-async def pull():
+async def pull() -> None:
     # On pull et on reboot le bot
     system('git pull && sh start.sh')
     await bot.logout()

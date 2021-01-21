@@ -1,5 +1,5 @@
 # Supprime tous les messages en relations avec le bots (commandes et résultats)
-async def clearChannel(ctx):
+async def clearChannel(ctx) -> None:
     # On prend les 30 derniers messages
     messages = await ctx.message.channel.history(limit=30).flatten()
     for i in messages:
@@ -13,7 +13,7 @@ async def clearChannel(ctx):
             pass
 
 # Supprime tous les messages
-async def emptyChannel(ctx):
+async def emptyChannel(ctx) -> None:
     # On prend les 100 derniers messages
     messages = await ctx.message.channel.history(limit=100).flatten()
     for i in messages:

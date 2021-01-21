@@ -1,5 +1,6 @@
 # Import du random
 from random import choices, randint
+from typing import Optional
 
 """
 Définition des classes et des fonctions
@@ -20,7 +21,7 @@ class Quote:
 
     # Initialisation d'une variable de classe, pour définir des poids cumulatifs
 
-    def __init__(self, text, author, weight=100):
+    def __init__(self, text: str, author: str, weight: int = 100) -> None:
         # Initialisation de attributs
         self.text = text
         self.author = author
@@ -30,9 +31,9 @@ class Quote:
         quotes.append(self)
         quotesWeight.append(weight)
 
-    def __contains__(self, other):
+    def __contains__(self, other: str):
         # On définit le in pour permettre de vérifier l'auteur simplement
-        if type(other) != str:
+        if not isinstance(other, str):
             raise TypeError
 
         if other.lower() in self.author.lower():
@@ -46,7 +47,7 @@ quotesToPull = []
 # Tirage d'une citation
 
 
-def random_quote(author=None):
+def random_quote(author: Optional[str] = None) -> Quote:
     """ Tire une citation au hasard dans la liste pondéré des citations """
     # Si un auteur particulier et demandé
     if author != None:

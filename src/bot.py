@@ -2,6 +2,7 @@
 
 # Import des APIs system
 from os import system
+from typing import Optional
 
 # Importation de l'API Discord
 from discord.ext import commands
@@ -25,7 +26,7 @@ bot = commands.Bot(command_prefix='.')
 
 # Quand le bot est pret
 @bot.listen()
-async def on_ready():
+async def on_ready() -> None:
     # On log la connexion
     print('Logged on as {0}!'.format(bot.user))
 
@@ -43,7 +44,7 @@ async def on_ready():
 
 
 @bot.command()
-async def ping(ctx):
+async def ping(ctx) -> None:
     # On répond pong
     await ctx.send('Pong')
     await ctx.message.delete()
@@ -53,7 +54,7 @@ async def ping(ctx):
 
 @bot.command()
 @commands.is_owner()
-async def reboot(ctx):
+async def reboot(ctx) -> None:
     # On reboot le bot
     system('sh start.sh')
     await ctx.bot.logout()
@@ -65,7 +66,7 @@ async def reboot(ctx):
 
 @bot.command()
 @commands.is_owner()
-async def stop(ctx):
+async def stop(ctx) -> None:
     # On stop le bot
     await ctx.bot.logout()
     await ctx.message.delete()
@@ -79,7 +80,7 @@ async def stop(ctx):
 # Commande de clear
 @bot.command()
 @commands.is_owner()
-async def clear(ctx):
+async def clear(ctx) -> None:
     # On supprime tous les messages de commande et du bot du channel
     await clearChannel(ctx)
     await ctx.message.delete()
@@ -88,7 +89,7 @@ async def clear(ctx):
 
 
 @bot.command()
-async def empty(ctx):
+async def empty(ctx) -> None:
     # On supprime tous les messages
     await emptyChannel(ctx)
     await ctx.message.delete()
@@ -100,7 +101,7 @@ async def empty(ctx):
 
 # Guide de la contribution
 @bot.command()
-async def contribution(ctx):
+async def contribution(ctx) -> None:
     # On explique comment fonctionne la contribution
     await ctx.send("Pour contribuer au fonctionnement du bot et l'améliorer, rendez vous sur https://github.com/MPSI1Thuillier/Bot")
     await ctx.message.delete()
@@ -112,7 +113,7 @@ async def contribution(ctx):
 
 # Commande de citation
 @bot.command()
-async def citation(ctx, arg=None):
+async def citation(ctx, arg: Optional[str] = None) -> None:
     # On choisi une citation
     quote = random_quote(arg)
 
@@ -128,7 +129,7 @@ async def citation(ctx, arg=None):
 
 
 @bot.command()
-async def count(ctx):
+async def count(ctx) -> None:
     # On compte les citations
     n = quotes_count()
 
@@ -154,7 +155,7 @@ async def count(ctx):
 
 # Commande d'item
 @bot.command()
-async def item(ctx):
+async def item(ctx) -> None:
     # On gènere un item et l'envoi
     text = generateItem()
     embed = Embed(title=text[0])
@@ -167,7 +168,7 @@ async def item(ctx):
 
 
 @bot.command()
-async def pileface(ctx):
+async def pileface(ctx) -> None:
     # On décide et envoie le résultat
     await ctx.send("Le résulat est : {}".format(["Pile", "Face"][randint(0, 1)]))
     await ctx.message.delete()
@@ -176,7 +177,7 @@ async def pileface(ctx):
 
 
 @bot.command()
-async def token(ctx):
+async def token(ctx) -> None:
     # On envoi le token
     await ctx.send("Le token est : Tm9uLCBsZSB0b2tlbiBuJ2VzdCBwYXMgYWNjZXNzaWJsZSBjb21tZSDDp2E")
     await ctx.message.delete()
@@ -192,7 +193,7 @@ morpion_games = []
 
 
 @bot.command()
-async def morpion(ctx):
+async def morpion(ctx) -> None:
     # On démarre une partie de morpion
     game = MorpionGame(3, MorpionHuman("O", "Joueur 1"), MorpionHuman("X", "Joueur 2"), ctx)
     morpion_games.append(game)
@@ -203,7 +204,7 @@ async def morpion(ctx):
 
 
 @bot.command()
-async def morpionbot(ctx):
+async def morpionbot(ctx) -> None:
     # On démarre une partie de morpion
     game = MorpionGame(3, MorpionHuman("O", "Joueur 1"), MorpionComputer("X", "Ordinateur"), ctx)
     morpion_games.append(game)
@@ -212,7 +213,7 @@ async def morpionbot(ctx):
 
 
 @bot.listen()
-async def on_reaction_add(reaction, user):
+async def on_reaction_add(reaction, user) -> None:
     # On check que c'est pas le bot
     if user.bot:
         return

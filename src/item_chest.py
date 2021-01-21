@@ -1,7 +1,29 @@
 # On importe les librairies
 from random import randint
+from typing import List, Tuple
 
 # On définit les différents objets
+class Stat:
+    """
+    L'objet Stat est utilisé pour représenter une stat pour un objet.\n
+    Il possède plusieurs attributs :
+     - name : Définit le nom de la stat
+     - type : Définit si la stat est relative (%), flat ou autre
+     - modifier: Définit le multiplicateur à appliquer à la stat
+     - special : Définit si la stat apparait aléatoirement ou est spécifique à un attibut/matériau
+    """
+    def __init__(self, name: str, type: str, modifier: float, special: bool = False) -> None:
+        self.name = name
+        self.type = type
+        self.modifier = modifier
+
+        if not special:
+            stats.append(self)
+    
+    def __str__(self) -> str:
+        return self.name
+
+
 class Type:
     """
     L'objet Type est utilisé pour représenter un type d'objet.\n
@@ -11,7 +33,7 @@ class Type:
      - statModifier: Définit le multiplicateur à appliquer à la stat
      - gender : Définit si l'objet est masculin ou féminin ou pluriel
     """
-    def __init__(self, name, stat, statModifier, gender):
+    def __init__(self, name: str, stat: Stat, statModifier: float, gender: int) -> None:
         self.name = name
         self.stat = stat
         self.statModifier = statModifier
@@ -19,8 +41,9 @@ class Type:
 
         types.append(self)
     
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
+
 
 class Material:
     """
@@ -32,7 +55,7 @@ class Material:
      - feminine : Définit quel féminin appliquer à l'objet
      - plural : Définit quel pluriel appliquer à l'objet
     """
-    def __init__(self, name, stat, quality, statModifier, feminine, plural = 0):
+    def __init__(self, name: str, stat: Stat, quality: int, statModifier: float, feminine: int, plural: int = 0) -> None:
         self.name = name
         self.stat = stat
         self.quality = quality
@@ -42,8 +65,9 @@ class Material:
 
         materials.append(self)
     
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
+
 
 class Attribute:
     """
@@ -55,7 +79,7 @@ class Attribute:
      - feminine : Définit quel féminin appliquer à l'objet
      - plural : Définit quel pluriel appliquer à l'objet
     """
-    def __init__(self, name, stat, qualityModifier, statModifier, feminine, plural = 0):
+    def __init__(self, name: str, stat: Stat, qualityModifier: int, statModifier: float, feminine: int, plural: int = 0) -> None:
         self.name = name
         self.stat = stat
         self.qualityModifier = qualityModifier
@@ -65,8 +89,9 @@ class Attribute:
 
         attributes.append(self)
     
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
+
 
 class Quality:
     """
@@ -76,41 +101,21 @@ class Quality:
      - multiplier: Définit le multiplicateur à appliquer aux stats de l'objet
      - totalStats : Définit combien de stats rajoute cette qualité
     """
-    def __init__(self, name, multiplier, totalStats):
+    def __init__(self, name: str, multiplier: float, totalStats: int) -> None:
         self.name = name
         self.multiplier = multiplier
         self.totalStats = totalStats
     
-    def __str__(self):
-        return self.name
-
-class Stat:
-    """
-    L'objet Stat est utilisé pour représenter une stat pour un objet.\n
-    Il possède plusieurs attributs :
-     - name : Définit le nom de la stat
-     - type : Définit si la stat est relative (%), flat ou autre
-     - modifier: Définit le multiplicateur à appliquer à la stat
-     - special : Définit si la stat apparait aléatoirement ou est spécifique à un attibut/matériau
-    """
-    def __init__(self, name, type, modifier, special = False):
-        self.name = name
-        self.type = type
-        self.modifier = modifier
-
-        if not special:
-            stats.append(self)
-    
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
 
 # Listes pour l'indexation
-stats = []
-materials = []
-types = []
-attributes = []
+stats: List[Stat] = []
+materials: List[Material] = []
+types: List[Type] = []
+attributes: List[Attribute] = []
 
 
 # Stats classiques
@@ -406,7 +411,7 @@ qualities = [[Maudit],[Merdique, Cassé],[Mauvais,Poussiéreux],[Banal],[Commun,
 
 
 # On définit la fonction principale
-def generateItem():
+def generateItem() -> Tuple[str, str]:
     # On prend des paramètres aléatoires dans les listes.
     itemType = types[randint(0, len(types) - 1)]
     itemAttribute = attributes[randint(0, len(attributes) - 1)]
@@ -557,4 +562,4 @@ def generateItem():
     if quality.name == "Démoniaque":
         quality.multiplier = 16
 
-    return [title, item]
+    return title, item
