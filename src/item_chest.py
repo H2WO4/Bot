@@ -369,7 +369,7 @@ Io = Attribute("d'Io", AptTemporelle, 3, 1, 0)
 Yego = Attribute("d'Yego", Dinousaures, 2, 1, 0)
 D4C = Attribute("d'Iforci", AptDimensionelle, 3, 1, 0)
 
-for i in range(100): types.append(Botte)
+
 
 # Quality
 Maudit = Quality("Maudit", -6, 6)
