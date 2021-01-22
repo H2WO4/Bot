@@ -451,7 +451,7 @@ def generateItem() -> Tuple[str, str]:
         if (stat.type == "Dual" and randint(0, 1)) or stat.type in ("Relative", "FixedRelative"): statMagn, relative = statMagn * 2, True
         if "Fixed" in stat.type: statMagn = stat.modifier # Et si sa valeur est fixe
         # On rajoute la stat au message
-        if statMagn != 0: item += "\n " + ("+ " if statMagn > 0 else "- ") + str(abs(statMagn)) + ("%" if relative else "") + " " + stat.name
+        if statMagn != 0: item += "\n " + ("+" if statMagn > 0 else "-") + str(abs(statMagn)) + ("%" if relative else "") + " " + stat.name
 
     qualMul = -6 if quality.name == "Démoniaque" else quality.multiplier # On gère le cas spécial de la qualité "Démoniaque"
     for i in range(quality.totalStats): # On calcule toutes les autres stats
@@ -460,6 +460,6 @@ def generateItem() -> Tuple[str, str]:
         statMagn = round(randint(3, 10) * qualMul * stat.modifier + randint(-2, 3))
         if (stat.type == "Dual" and randint(0, 1)) or stat.type == "Relative": statMagn, relative = statMagn * 2, True
         # On rajoute la stat au message
-        if statMagn != 0: item += "\n " + ("+ " if statMagn > 0 else "- ") + str(abs(statMagn)) + ("%" if relative else "") + " " + stat.name
+        if statMagn != 0: item += "\n " + ("+" if statMagn > 0 else "-") + str(abs(statMagn)) + ("%" if relative else "") + " " + stat.name
 
     return title, item
