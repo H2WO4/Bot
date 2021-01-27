@@ -1,6 +1,6 @@
 # Import du random
-from random import choices, randint
-from typing import Optional
+from random import choices
+from typing import List, Optional
 
 """
 Définition des classes et des fonctions
@@ -45,23 +45,15 @@ global quotesToPull
 quotesToPull = []
 
 # Tirage d'une citation
-
-
 def random_quote(author: Optional[str] = None) -> Quote:
     """ Tire une citation au hasard dans la liste pondéré des citations """
-    # Si un auteur particulier et demandé
+    # Si un auteur particulier est demandé
     if author != None:
         # On se met dans un try pour éviter les erreurs de l'entrée utilisateur
         try:
-            # On prépare deux nouvelles listes
-            newQuotesToPull = []
-            newQuotesWeight = []
-
-            for i in quotes:
-                if author in i:
-                    # On ajoute dans les listes que les quotes correspondantes
-                    newQuotesToPull.append(i)
-                    newQuotesWeight.append(i.weight)
+            # On créer deux nouvelles listes, contenant les quotes et leurs poids correspondant à l'auteur demandé
+            newQuotesToPull = [i for i in quotes if author in i]
+            newQuotesWeight = [i.weight for i in newQuotesToPull]
 
             # On donne une citation aléatoire de la nouvelle liste
             return choices(newQuotesToPull, weights=newQuotesWeight, k=1)[0]
@@ -75,34 +67,15 @@ def random_quote(author: Optional[str] = None) -> Quote:
     global quotesToPull
 
     # On regarde si la liste contient des quotes
-    if len(quotesToPull) == 0:
-        # Si la liste est vide, on prend 12 éléments de la liste, avec répétition, car on peut pas faire autrement
-        quotesToPull = choices(quotes, weights=quotesWeight, k=12)
+    if quotesToPull == []:
+        # Si la liste est vide, on prend 20 éléments de la liste, avec répétition, car on peut pas faire autrement
+        quotesToPull = choices(quotes, weights=quotesWeight, k=20)
 
-        # On prepare une liste pour y stocker les index des valeurs à supprimer
-        toDelete = []
-
-        # On cherche les répétitions
-        for i in range(len(quotesToPull)):
-            for j in range(len(quotesToPull)):
-
-                # On vérifie que seule une des deux valeurs se fasse supprimer
-                if quotesToPull[i] == quotesToPull[j] and i < j:
-
-                    # On évite les répétions dans la liste
-                    if j not in toDelete:
-                        toDelete.append(j)
-
-        # On trie la liste dans l'ordre décroissant, pour éviter les éléments de changer d'index
-        toDelete.sort()
-        toDelete.reverse()
-
-        # Et on les éliminent un par un
-        for i in toDelete:
-            del quotesToPull[i]
+        # On transforme en set, puis en liste, pour enlever les répétitions
+        quotesToPull = list(set(quotesToPull))
 
     # Puis on return une citation au hasard et l'enlève de la liste
-    return quotesToPull.pop(randint(0, len(quotesToPull) - 1))
+    return quotesToPull.pop()
 
 # Comptage du nombre de citations
 
@@ -112,8 +85,8 @@ def quotes_count():
 
 
 # Création des listes des citations
-quotes = []
-quotesWeight = []
+quotes: List[Quote] = []
+quotesWeight: List[int] = []
 
 
 """
@@ -174,13 +147,13 @@ Quote("Ouf !", "Vincent V.K.")
 Quote("C'est une perte de temps et d'énergie... Non c'est bien !", "Vincent V.K.")
 Quote("C'est toujours des filles qui gloussent", "Vincent V.K.")
 Quote("Vous me trouvez sexiste mais c'est la vérité", "Vincent V.K.")
-Quote("Ah ça y est j'ai attrapé le covid !", "Vincent V.K.")
+Quote("Ah ça y est j'ai attrapé le Covid !", "Vincent V.K.")
 Quote("Il fait chier lui ! Il arrive en retard et il regarde son téléphone", "Vincent V.K.")
 Quote("Ça se fait en... assez vite", "Vincent V.K.")
 Quote("Ça c'est connu depuis belle lurette", "Vincent V.K.")
 Quote("Que vous soyez pas sérieux, j'en doute pas une seconde, j'avais remarqué", "Vincent V.K.")
 Quote("Y'avait ça dans votre interro... y'en a qui connaissaient pas vraiment", "Vincent V.K.")
-Quote("Vous allez mourir du covid si je ferme la fenêtre. C'est à partir de -20°C qu'on meurt de froid", "Vincent V.K.")
+Quote("Vous allez mourir du Covid si je ferme la fenêtre. C'est à partir de -20°C qu'on meurt de froid", "Vincent V.K.")
 Quote("Demandez un rendez-vous à la proviseur, dites lui que je suis un sadique", "Vincent V.K.")
 Quote("OH ! J'ai déjà vu cette énormité", "Vincent V.K.")
 Quote("Vous croyez qu'il y a des fantômes dans ce lycée ?", "Vincent V.K.")
@@ -236,8 +209,7 @@ Quote("C'est du calcul mathématique, c'est pas intéressant", "Stefano S.")
 
 
 # Citations de Baptiste
-Quote("Tout seul on va plus vite, ensemble on va plus loin.",
-      "Baptiste H. (proverbe africain)")
+Quote("Tout seul on va plus vite, ensemble on va plus loin.", "Baptiste H. (proverbe africain)")
 Quote("Oh, c'est pas très sympatique ça.", "Baptiste H.")
 Quote("Il y a des normes.", "Baptiste H.")
 Quote("On s'en fou si on arrive pas à lire, du moment qu'on comprend ce qu'il faut faire !", "Baptiste H.")
@@ -317,8 +289,7 @@ Quote("Tout est relatif, sauf la vodka, qui est absolute !", "Anonyme", 30)
 Quote("We can be do, to do. What we want to do!", "François Hollande", 30)
 Quote("Yes, **WE CAN!**", "Barrack Obama", 30)
 Quote("Ich bin ein Berliner!", "John F. Kennedy", 30)
-Quote("Il ne faut jamais croire les citations trouvées sur Internet.",
-      "Albert Einstein", 30)
+Quote("Il ne faut jamais croire les citations trouvées sur Internet.", "Albert Einstein", 30)
 Quote("01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100 00100001", "Bot", 30)
 Quote("Les deux machines fonctionnent", "Surveillant", 30)
 
