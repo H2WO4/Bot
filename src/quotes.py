@@ -7,6 +7,9 @@ Définition des classes et des fonctions
 Pour ajouter des citations, voir plus bas dans le fichier
 """
 
+# Import du random
+from random import choice, choices, randint
+
 # Structure des citations
 
 
@@ -76,6 +79,20 @@ def random_quote(author: Optional[str] = None) -> Quote:
 
     # Puis on return une citation au hasard et l'enlève de la liste
     return quotesToPull.pop()
+
+# Tirage d'une citation pour le quiz
+
+def quiz_quote():
+    # On part d'une string vide
+    current = None
+
+    # Tant que c'est pas une citation avec une seule virgule
+    while current == None or current.text.count(",") != 1:
+        # On enprend une nouvelle
+        current = choice(quotes)
+
+    # Quand c'est bon on return
+    return current
 
 # Comptage du nombre de citations
 
@@ -162,6 +179,28 @@ Quote("On réfléchit pas quand c'est pas nécessaire", "Vincent V.K.")
 Quote("C'est l'auto confinement : on reste confiné dans sa voiture", "Vincent V.K.")
 Quote("1 + 1 = 0", "Vincent V.K.")
 Quote("Je vous souhaite bien du courage ! _tape du pied_", "Vincent V.K.")
+Quote("Personne ne t'aime !", "Vincent V.K.")
+Quote("Bon, là il doit être mort", "Vincent V.K.")
+Quote("Si ça se trouve, c'est vous qui l'avez jeté au fond de la somme", "Vincent V.K.")
+Quote("C'est ça, vous n'aimez pas les maths", "Vincent V.K.")
+Quote("Vous pouvez mépriser les profs, mais vous n'avez pas le droit de le montrer", "Vincent V.K.")
+Quote("Ces chiffres là ils dégagent !", "Vincent V.K.")
+Quote("Il faut avancer... ou reculer", "Vincent V.K.")
+Quote("Ça fait exponentielle... heu non partie entière", "Vincent V.K.")
+Quote("Vous faites bien pire sur vos copies", "Vincent V.K.")
+Quote("Si vous pensez que vous avez atteint vos limites...", "Vincent V.K.")
+Quote("Peut être qu'elle le font mieux... ou moins mal", "Vincent V.K.")
+Quote("C'est pas drôle... Quoi que... On peut s'amuser", "Vincent V.K.")
+Quote("Ça marche bien de noter des absents au hasard", "Vincent V.K.")
+Quote("Je compte sur vous pour faire preuve de rigueur... Nan je rigole !", "Vincent V.K.")
+Quote("Je sais pas si c'est le cours sur les suites qui vous terrifie à ce point", "Vincent V.K.")
+Quote("C'est évident que... Ah non c'est pas évident !", "Vincent V.K.")
+Quote("Ça ne m'intéresse pas, je gagne de l'argent autrement", "Vincent V.K.")
+Quote("Je me suis encore trompé !", "Vincent V.K.")
+Quote("Je ne sais même plus ce qu'il faut écrire !", "Vincent V.K.")
+Quote("Dans le cours, ya pas grand chose dont j'ai eu l'idée", "Vincent V.K.")
+Quote("Je suis pas du tout rigoureux, je vous montre ce qu'il ne faut pas faire", "Vincent V.K.")
+Quote("On est pas non plus des abrutis !", "Vincent V.K.")
 
 
 # Citations de Stefano
@@ -206,6 +245,18 @@ Quote("Si vous dites ça vaut 1, vous allez faire sauter au plafond celui qui vo
 Quote("Et le tour est joué !", "Stefano S.")
 Quote("Les équa diff on en a marre !", "Stefano S.")
 Quote("C'est du calcul mathématique, c'est pas intéressant", "Stefano S.")
+Quote("Ça, ça s'appelle... ah bah je sais pas comment on pourrait l'appeler", "Stefano S.")
+Quote("Non ça marche pas ce que je dis... Ah mais si si si ça marchait ! Un moment de panique...", "Stefano S.")
+Quote("Le dénominateur il explose", "Stefano S.")
+Quote("Ça, je vous le laisse en exercice", "Stefano S.")
+Quote("Ah oui, on peut le compliquer autant qu(on veut", "Stefano S.")
+Quote("Quand φ = π/2, ça permet d'arnaquer EDF", "Stefano S.")
+Quote("C'est gagné, vous avez arnaqué EDF !", "Stefano S.")
+Quote("Si vous savez faire des maths sans compter, je vous autorise à faire de la physique sans vérifier l'homogénéité.", "Stefano S.")
+Quote("Se présenter aux concours sans savoir faire l'homogénéité, c'est suicidaire !", "Stefano S.")
+Quote("Soit vous écoutez pas, soit votre mémoire ne dure que 2 minutes", "Stefano S.")
+Quote("Comme les concours ne durent pas une infinité de temps, vous n'allez pas pouvoir finir l'exercice", "Stefano S.")
+Quote("Ne me demandez pas pourquoi, j'en sais rien !", "Stefano S.")
 
 
 # Citations de Baptiste
@@ -213,6 +264,8 @@ Quote("Tout seul on va plus vite, ensemble on va plus loin.", "Baptiste H. (prov
 Quote("Oh, c'est pas très sympatique ça.", "Baptiste H.")
 Quote("Il y a des normes.", "Baptiste H.")
 Quote("On s'en fou si on arrive pas à lire, du moment qu'on comprend ce qu'il faut faire !", "Baptiste H.")
+Quote("Fatiguez moi là un peu quand même !", "Baptiste H.")
+Quote("Un jour vous arriverez à vous tuer", "Baptiste H.")
 
 
 # Citations de René
@@ -243,10 +296,13 @@ Quote("Le truc, c'est que si il marche sur ses petits *paws*. Sur ses petits pot
 Quote("A washing raton.", "Claire T.B.")
 Quote("Ça commence mal, ça commence mal !", "Claire T.B.")
 Quote("Oh non, ça y est, je vous retrouve !", "Claire T.B.")
+Quote("Gna gna, gna gna gna", "Claire T.B.")
 
 
 # Citations de Benjamin
 Quote("ln(2) = 0.69, ça se retient !", "Benjamin D.")
+Quote("Une fois qu'on a sorti le gros engin, il n'y a plus qu'à l'utiliser", "Benjamin D.")
+Quote("Ça se téléscope bien", "Benjamin D.")
 
 
 # Citations des khôleurs
