@@ -3,10 +3,11 @@
 # Import des APIs system
 from os import system
 from typing import Optional
+from io import BytesIO
 
 # Importation de l'API Discord
 from discord.ext import commands
-from discord import Embed, Game
+from discord import Embed, Game, File
 
 # On importe nos ressources
 from helper import isAlmostEqual
@@ -14,6 +15,7 @@ from quotes import random_quote, quiz_quote, quotes_count
 from item_chest import generateItem
 from clear import clearChannel, emptyChannel
 from morpion import MorpionGame, MorpionHuman, MorpionComputer
+from img import generate_image
 
 # Import du random
 from random import randint
@@ -149,6 +151,18 @@ async def count(ctx) -> None:
     await ctx.send(embed=embed)
     await ctx.message.delete()
 
+# Commande de wallpaper
+
+@bot.command()
+async def wallpaper(ctx):
+    # On préviens qu'on travail
+    await ctx.send("Génération du fond d'écran...")
+
+    # On génère une image
+    generate_image()
+
+    # On l'envoie
+    await ctx.send(file=File("wallpaper.jpg"))
 
 #
 # Commandes funs
@@ -268,22 +282,15 @@ async def on_message(message):
     for question in quiz_games:
         if question[0] == message.author.id:
             # On est sur la réponse à notre question
-            if isAlmostEqual(message.content, question[1].text.split(", ")[1]):
-                # Bonne réponse
-                embed = Embed(
-                    title="Bonne réponse !!! 👍",
-                    description=question[1].text
-                )
-                embed.set_footer(text=question[1].author)
-                await message.channel.send(embed=embed)
-            else:
-                # Mauvaise réponse
-                embed = Embed(
-                    title="Mauvaise réponse !!! 👎",
-                    description="La citation complète était :\n" + question[1].text
-                )
-                embed.set_footer(text=question[1].author)
-                await message.channel.send(embed=embed)
+            isCorrect = isAlmostEqual(message.content, question[1].text.split(", ")[1])
+
+            # On créé le message de réponse
+            embed = Embed(
+                title="Bonne réponse !!! 👍" if isCorrect else "Mauvaise réponse !!! 👎",
+                description=question[1].text
+            )
+            embed.set_footer(text=question[1].author)
+            await message.channel.send(embed=embed)
             
             # On le retire de la liste
             quiz_games.remove(question)

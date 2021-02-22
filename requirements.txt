@@ -2,3 +2,4 @@ pytest
 discord.py
 python-dotenv
 quart
+Pillow
